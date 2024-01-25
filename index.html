@@ -1,0 +1,368 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>photo editor app</title>
+  </head>
+  <style>
+    * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  place-items: center;
+  display: grid;
+}
+
+.container {
+  width: 35%;
+  height: auto;
+  padding: 10px;
+  box-shadow: 0 0 10px rgb(0, 0, 0, 0.1);
+  border-radius: 4px;
+  background-color: rgb(188, 240, 223);
+}
+.container h1 {
+  text-align: center;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  text-transform: capitalize;
+  margin: 5px 0;
+}
+.view_img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 5px;
+}
+.view_img img {
+  width: 400px;
+  height: 360px;
+  object-fit: contain;
+}
+.choose_img {
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+.disabled .view_img{
+    pointer-events: none;
+    opacity: .5;
+}
+.choose_img button {
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 13px 25px;
+  border: none;
+  outline: none;
+  background-color: rgb(221, 135, 88);
+  border-radius: 4px;
+  cursor: pointer;
+}
+.choose_img button img {
+  width: 35px;
+}
+.slider {
+  width: 100%;
+  position: relative;
+  padding: 10px;
+}
+.disabled .slider{
+    pointer-events: none;
+    opacity: .5;
+}
+.slider input[type = "range"]{
+    width: 100%;
+}
+.slider .filter_info{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+    text-transform: capitalize;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.icons_filter{
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid rgb(0, 0, 0, 0.1);
+    margin-bottom: 5px;
+}
+.disabled .icons_filter{
+    pointer-events: none;
+    opacity: .5;
+}
+.icons_filter p{
+    text-transform: capitalize;
+    margin-bottom: 8px;
+    font-size: .9rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.icons_filter .icons_room{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.icons_filter .icons_room button{
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+.icons_room button img{
+    width: 20px;
+}
+.active{
+    background-color: rgb(239, 181, 211)!important;
+    padding: 5px;
+    border-radius: 50%;
+}
+.icons_room1{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.icons_filter .icons_room1 button{
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+.icons_room1 button img{
+    width: 20px;
+}
+
+.icons_room1 button:last-child{
+    transform: rotate(90deg);
+}
+.btn_contain{
+    position: relative;
+    margin: 5px 0;
+}
+.disabled .btn_contain{
+    pointer-events: none;
+    opacity: .5;
+}
+.btn_contain button{
+    padding: 13px 20px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+    text-transform: capitalize;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.btn_contain button:first-child{
+    border: 1px solid rgba(12, 11, 11, 0.1);
+    transition-duration: 400ms;
+}
+.btn_contain button:first-child:hover{
+    border: none;
+    background-color: rgb(20, 20, 128);
+    color: #fff;
+}
+.btn_contain button:last-child{
+    background-color: rgb(51, 110, 51);
+    color: #fff;
+}
+
+@media (max-width:768px) {
+    .container{
+        width: 100%;
+    }
+}
+  </style>
+  <body>
+    <div class="container disabled">
+      <h1>Photo Editor</h1>
+      <hr />
+      <div class="view_img">
+        <img src="https://cdn.icon-icons.com/icons2/2570/PNG/512/image_icon_153794.png" alt="" />
+      </div>
+
+      <div class="choose_img">
+        <button>Choose Image <img src="https://cdn-icons-png.flaticon.com/512/126/126477.png" alt="" /></button>
+        <input type="file" name="" id="" accept="image/*" hidden />
+      </div>
+
+      <div class="slider">
+        <div class="filter_info">
+          <span class="name">Brightness</span>
+          <span class="value">100%</span>
+        </div>
+        <input type="range" name="" id="" max="200" min="0" value="100" />
+      </div>
+      <div class="icons_filter">
+        <p>Filters</p>
+        <div class="icons_room">
+          <button title="brightness" id="brightness" class="active">
+            <img src="https://cdn-icons-png.flaticon.com/512/2089/2089622.png" alt="" />
+          </button>
+          <button title="contrast" id="contrast">
+            <img src="https://cdn-icons-png.flaticon.com/512/475/475980.png" alt="" />
+          </button>
+          <button title="saturate" id="saturate">
+            <img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/saturation-164310.png?f=webp" alt="" />
+          </button>
+          <button title="invert" id="invert">
+            <img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/invert-164299.png" alt="" />
+          </button>
+          <button title="blur" id="blur">
+            <img src="https://cdn-icons-png.flaticon.com/512/565/565769.png" alt="" />
+          </button>
+        </div>
+      </div>
+      <div class="icons_filter">
+        <p>Rotate & Flip</p>
+        <div class="icons_room1">
+          <button title="rotate_left" id="rotate_left"><img src="https://cdn-icons-png.flaticon.com/512/32/32418.png" alt="" /></button>
+          <button title="rotate_right" id="rotate_right"><img src="https://cdn-icons-png.flaticon.com/512/10899/10899100.png" alt="" /></button>
+          <button title="flip_x" id="flip_x"><img src="https://cdn2.iconfinder.com/data/icons/image-editing-3/24/icon-image-editing-flip-horizontally-512.png" alt="" /></button>
+          <button title="flip_y" id="flip_y"><img src="https://cdn2.iconfinder.com/data/icons/image-editing-3/24/icon-image-editing-flip-vertically-512.png" alt="" /></button>
+        </div>
+      </div>
+
+      <div class="btn_contain">
+        <button class="reset">Reset Filter</button>
+        <button class="save">Save Image</button>
+      </div>
+    </div>
+    <script >
+        let choose_img_Btn = document.querySelector(".choose_img button");
+let choose_Input = document.querySelector(".choose_img input");
+let imgSrc = document.querySelector(".view_img img");
+let filter_buttons = document.querySelectorAll(".icons_room button");
+let slider = document.querySelector(".slider input");
+let filter_name = document.querySelector(".filter_info .name");
+let slider_value = document.querySelector(".filter_info .value");
+let rotate_btns = document.querySelectorAll(".icons_room1 button");
+let reset = document.querySelector(".reset");
+let save = document.querySelector(".save");
+let brightness = 100,
+  contrast = 100,
+  saturate = 100,
+  invert = 0,
+  blur = 0,
+  rotate = 0,
+  flip_x = 1,
+  flip_y = 1;
+
+choose_img_Btn.addEventListener("click", () => choose_Input.click());
+choose_Input.addEventListener("change", () => {
+  let file = choose_Input.files[0];
+  if (!file) return;
+  imgSrc.src = URL.createObjectURL(file);
+  imgSrc.addEventListener("load", () => {
+    document.querySelector(".container").classList.remove("disabled");
+  });
+});
+
+filter_buttons.forEach((element) => {
+  element.addEventListener("click", () => {
+    document.querySelector(".active").classList.remove("active");
+    element.classList.add("active");
+    filter_name.innerText = element.id;
+    if (element.id === "brightness") {
+      slider.max = "200";
+      slider.value = brightness;
+      slider_value.innerText = `${brightness}`;
+    } else if (element.id === "contrast") {
+      slider.max = "200";
+      slider.value = contrast;
+      slider_value.innerText = `${contrast}`;
+    } else if (element.id === "contrast") {
+      slider.max = "200";
+      slider.value = saturate;
+      slider_value.innerText = `${saturate}`;
+    } else if (element.id === "invert") {
+      slider.max = "100";
+      slider.value = invert;
+      slider_value.innerText = `${invert}`;
+    } else if (element.id === "blur") {
+      slider.max = "100";
+      slider.value = blur;
+      slider_value.innerText = `${blur}`;
+    }
+  });
+});
+
+slider.addEventListener("input", () => {
+  slider_value.innerText = `${slider.value}%`;
+  let sliderState = document.querySelector(".icons_room .active");
+  if (sliderState.id === "brightness") {
+    brightness = slider.value;
+  } else if (sliderState.id === "contrast") {
+    contrast = slider.value;
+  } else if (sliderState.id === "saturate") {
+    saturate = slider.value;
+  } else if (sliderState.id === "invert") {
+    invert = slider.value;
+  } else if (sliderState.id === "blur") {
+    blur = slider.value;
+  }
+  imgSrc.style.filter = `brightness(${brightness}%) contrast(${contrast}%) saturate(${saturate}%) invert(${invert}%) blur(${blur}px)`;
+});
+
+rotate_btns.forEach((element) => {
+  element.addEventListener("click", () => {
+    if (element.id === "rotate_left") {
+      rotate -= 90;
+    } else if (element.id === "rotate_right") {
+      rotate += 90;
+    } else if (element.id === "flip_x") {
+      flip_x = flip_x === 1 ? -1 : 1;
+    } else if (element.id === "flip_y") {
+      flip_y = flip_y === 1 ? -1 : 1;
+    }
+
+    imgSrc.style.transform = `rotate(${rotate}deg) scale(${flip_x}, ${flip_y})`;
+  });
+});
+
+reset.addEventListener("click", () => {
+  brightness = "100";
+  saturate = "100";
+  contrast = "100";
+  invert = "0";
+  blur = "0";
+  rotate = 0;
+  flip_x = 1;
+  flip_y = 1;
+  imgSrc.style.transform = `rotate(${rotate}deg) scale(${flip_x}, ${flip_y})`;
+  imgSrc.style.filter = `brightness(${brightness}%) contrast(${contrast}%) saturate(${saturate}%) invert(${invert}%) blur(${blur}px)`;
+});
+
+save.addEventListener("click", () => {
+    let canvas = document.createElement("canvas");
+    let ctx = canvas.getContext("2d");
+    canvas.width = imgSrc.naturalWidth;
+    canvas.height = imgSrc.naturalHeight;
+    ctx.filter = `brightness(${brightness}%) contrast(${contrast}%) saturate(${saturate}%) invert(${invert}%) blur(${blur}px)`;
+    ctx.translate(canvas.width / 2, canvas.height / 2);
+    ctx.scale(flip_x, flip_y);
+    ctx.drawImage(
+      imgSrc,
+      -canvas.width / 2,
+      -canvas.height / 2,
+      canvas.width,
+      canvas.height
+    );
+    const link = document.createElement("a");
+    link.download = "image.jpg";
+    link.href = canvas.toDataURL();
+    link.click();
+});
+    </script>
+  </body>
+</html>
